@@ -26,6 +26,24 @@
     return;
 }
 
+- (GADAdSize)customAdSize:(NSString *)bannerSize
+{
+  NSNumberFormatter *formatter = [NSNumberFormatter new];
+  formatter.numberStyle = NSNumberFormatterRoundFloor;
+
+  NSArray<NSString *> *sizes = [bannerSize componentsSeparatedByString:@","];
+
+  if (sizes.count != 2) {
+    NSLog(@"Could not parse %@", bannerSize);
+    return kGADAdSizeBanner;
+  }
+
+  float width = [formatter numberFromString:sizes[0]].floatValue;
+  float height = [formatter numberFromString:sizes[1]].floatValue;
+
+  return GADAdSizeFromCGSize(CGSizeMake(width, height));
+}
+
 - (GADAdSize)getAdSizeFromString:(NSString *)bannerSize
 {
     if ([bannerSize isEqualToString:@"banner"]) {
@@ -42,9 +60,8 @@
         return kGADAdSizeSmartBannerPortrait;
     } else if ([bannerSize isEqualToString:@"smartBannerLandscape"]) {
         return kGADAdSizeSmartBannerLandscape;
-    }
-    else {
-        return kGADAdSizeBanner;
+    } else {
+        return [self customAdSize:bannerSize];
     }
 }
 
