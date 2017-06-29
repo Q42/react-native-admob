@@ -217,7 +217,15 @@ public class RNAdMobBannerViewManager extends SimpleViewManager<ReactViewGroup> 
       adView.loadAd(adRequest);
     }
   }
+  private AdSize customAdSize(String adSize) {
 
+    String[] sizes = adSize.split(",");
+    if (sizes.length != 2) {
+      return AdSize.BANNER;
+    }
+
+    return new AdSize(Integer.parseInt(sizes[0]), Integer.parseInt(sizes[2]));
+  }
 
   private AdSize getAdSizeFromString(String adSize) {
     switch (adSize) {
@@ -238,7 +246,7 @@ public class RNAdMobBannerViewManager extends SimpleViewManager<ReactViewGroup> 
       case "smartBanner":
         return AdSize.SMART_BANNER;
       default:
-        return AdSize.BANNER;
+        return this.customAdSize(adSize);
     }
   }
 }
