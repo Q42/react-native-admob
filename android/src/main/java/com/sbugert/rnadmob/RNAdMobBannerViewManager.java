@@ -224,7 +224,7 @@ public class RNAdMobBannerViewManager extends SimpleViewManager<ReactViewGroup> 
       return AdSize.BANNER;
     }
 
-    return new AdSize(Integer.parseInt(sizes[0]), Integer.parseInt(sizes[2]));
+    return new AdSize(Integer.parseInt(sizes[0]), Integer.parseInt(sizes[1]));
   }
 
   private AdSize getAdSizeFromString(String adSize) {
