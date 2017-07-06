@@ -20,7 +20,7 @@ export default class AdMobBanner extends React.Component {
 
   onSizeChange(event) {
     const { height, width } = event.nativeEvent;
-    this.setState({ style: { width, height } });
+    this.setState({ style: { this.props.style.width || width, this.props.style.height || height } });
   }
 
   render() {
